@@ -38,13 +38,14 @@ public class CounterController {
    */
   @GetMapping(value = "/api/count")
   ApiResponse get() {
+    long start = System.currentTimeMillis();
     logger.info("/api/count get request");
     Optional<Counter> counter = counterService.getCounter(1);
     Integer count = 0;
     if (counter.isPresent()) {
       count = counter.get().getCount();
     }
-
+    logger.info("/api/count get request end，cost time ={}", System.currentTimeMillis() - start);
     return ApiResponse.ok(count);
   }
 
